@@ -13,9 +13,10 @@
 
             // Still trying to my code to work! No circles showing yet...
 
-            const svgWidth = 250;
-            const svgHeight = 100;
-            const svgRadius = 10;
+            const svgWidth = 500;
+            const svgHeight = 500;
+            const padding = .03;
+            
               
             const dataset = [
                             [200, 40], [170, 100], [400, 60], [100, 150], [410, 300], [120, 220], [310, 260], [400, 110]
@@ -26,8 +27,7 @@
             const svg = d3.select("body")
                         .append("svg")
                         .attr("width", svgWidth)
-                        .attr("height", svgHeight)
-                        .attr("height", svgRadius);
+                        .attr("height", svgHeight);
 
             
         
@@ -35,9 +35,12 @@
                 .data(dataset)
                 .enter()
                 .append("circle")
-                .attr("x", (d,i) => i * (svgWidth / dataset.length))
-                .attr("y", d=> svgHeight - d) 
-                .attr("radius", svgRadius / dataset.length);
+                .attr("cx", (d,i) => i * (svgWidth / dataset.length))
+                .attr("cy", d=> svgHeight - d) 
+                .attr("r", 10) 
+                .attr("fill", "green");
+
+
         </script>
     </body>
 </html>
