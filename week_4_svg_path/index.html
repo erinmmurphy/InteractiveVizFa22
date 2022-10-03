@@ -18,15 +18,15 @@
 
         <script type="text/javascript">
         
-        const dataset = [{"bread": "Whole wheat", "love": "10"}, {"bread": "White", "love": "20"}, {"bread": "Italian", "love": "30"}, {"bread": "French", "love": "40"},{"bread": "Raisin", "love": "50"}];
+        const dataset = [{"bread": "Whole wheat", "popularity": "192.68"}, {"bread": "White", "popularity": "135.48"}, {"bread": "Italian", "popularity": "49.63"}, {"bread": "French", "popularity": "47.99"},{"bread": "Raisin", "popularity": "35.15"}];
         
-        const maxData = d3.max(dataset, d=>+d.love);
-        const minData = d3.min(dataset, d=>+d.love);
+        const maxData = d3.max(dataset, d=>+d.popularity);
+        const minData = d3.min(dataset, d=>+d.popularity);
         const myColor = d3.scaleLinear()
                           .domain([minData, maxData])
-                          .range(["peru", "white"]);
+                          .range(["white", "peru"]);
 
-        //the SVG path points for our heart drawing--mind the commas!!!        
+             
         const bread = ["M200,175 C200,100 380,120, 297,230 L300,350 L100,350 L100,230 C20,150 200,80 199,175"];
 
         const row = dataset.length;//
@@ -49,7 +49,7 @@
       g.append("path")
        .attr("d", bread)
        .attr("transform", "scale(.5)")
-       .attr("fill", d=> myColor(d.love))
+       .attr("fill", d=> myColor(d.popularity))
                       .attr("stroke", "peru")
                       .attr("stroke-width", "3px");;
 
@@ -63,7 +63,7 @@
         .attr("dy", "2px") //y coordinate offset
         .text(d=>d.bread); //the text 
         
-        //Make Title (Note the difference between svg.append text and g.append text) 
+        //Make Title
         svg.append("text")
            .attr("x", 450) //x coordinate
            .attr("y", 40) //y coordinate
