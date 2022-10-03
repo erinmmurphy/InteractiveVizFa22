@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Types of Bread Consumed in US in 2020</title>
+        <script src= "https://d3js.org/d3.v7.min.js"></script>
+        <style type="text/css"> 
+        	svg{
+                width: 800px;
+                height: 800px;
+            }
+        
+        </style>
+    </head>
+    <body>
+        <svg></svg> 
+
+        <script type="text/javascript">
+        
+        const dataset = [{"bread": "Whole wheat", "love": "10"}, {"bread": "White", "love": "20"}, {"bread": "Italian", "love": "30"}, {"bread": "French", "love": "40"},{"bread": "Raisin", "love": "50"}];
+        
+        const maxData = d3.max(dataset, d=>+d.love);
+        const minData = d3.min(dataset, d=>+d.love);
+        const myColor = d3.scaleLinear()
+                          .domain([minData, maxData])
+                          .range(["peru", "white"]);
+
+        //the SVG path points for our heart drawing--mind the commas!!!        
+        const bread = ["M200,175 C200,100 380,120, 297,230 L300,350 L100,350 L100,230 C20,150 200,80 199,175"];
+
+        const row = dataset.length;//
+        const size = 150;
+
+
+        const svg = d3.select("svg");
+
+        const g = svg.selectAll("g")//our group! 
+                      .data(dataset)
+                      .enter()
+                      .append("g")
+                      .attr("transform", (d,i)=>{
+                              const x = (i % row +.25) * size; 
+                              const y = (Math.floor(i/row)+1) * size;
+                              return "translate(" + [x,y] + ")";})
+                      
+
+
+      g.append("path")
+       .attr("d", bread)
+       .attr("transform", "scale(.5)")
+       .attr("fill", d=> myColor(d.love))
+                      .attr("stroke", "peru")
+                      .attr("stroke-width", "3px");;
+
+
+       //Make Labels
+      g.append("text")
+        .attr("x", size/2 + 25) //x coordinate
+        .attr("y", size + 40) //y coordinate
+        .attr("text-anchor", "middle") //horizontal text alignment 
+        .attr("font-family", "sans-serif")
+        .attr("dy", "2px") //y coordinate offset
+        .text(d=>d.bread); //the text 
+        
+        //Make Title (Note the difference between svg.append text and g.append text) 
+        svg.append("text")
+           .attr("x", 450) //x coordinate
+           .attr("y", 40) //y coordinate
+           .attr("text-anchor", "middle") //horizontal text alignment
+           .attr("font-family", "sans-serif")
+           .attr("fill", "brown")
+           .attr("class", "title")
+           .text("Survey: Types of Bread Consumed in US in 2020 (Darker Brown = More Popular)"); //the text 
+
+    
+       
+
+        </script>
+    </body>
+  </html>
