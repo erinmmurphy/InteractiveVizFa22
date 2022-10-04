@@ -1,14 +1,13 @@
-# Bread Consumption in US by Type 2020
+# Number of Films I've Watched By French Directors
 
-#### This data was sourced from Statista: https://www-statista-com.ezproxy.pratt.edu/statistics/279981/us-households-types-of-bread-consumed/
+### I created this dataset based on a list I made of french films I have seen.
 ____
 
-## Dataset description (from Statista):  
-This statistic shows the types of bread eaten most often in the United States in 2020. The data has been calculated by Statista based on the U.S. Census data and Simmons National Consumer Survey (NHCS). According to this statistic, 192.68 million Americans consumed whole wheat/ multi-grain bread in 2020.  
+
 ___
 
 
-## Visualizing the Bread Dataset with D3 and SVG
-![image](bread_viz.png)
-The visualization displays bread types from most popular (darkest) to least popular (lightest).
+## Visualizing the Director Dataset with D3 and SVG
+![image](director_bar_chart.png)
+The visualization displays a solid bar for directors of who I've seen more than 3 films by. The checkered bars represent directors I've seen 3 or less films by.
 ___
