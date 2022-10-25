@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Number of French Films Watched by Director</title>
+        <script src= "https://d3js.org/d3.v7.min.js"></script>
+        <style type="text/css">
+            
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+            font-family: sans-serif;
+          }
+
+        .label{
+            font-size: 14px;
+            font-weight: normal;
+            font-family: sans-serif;
+          }
+
+        .description {
+            font-size: 14px;
+            font-weight: normal;
+            font-family: sans-serif;
+        }
+
+        .bars.opt1 {
+        	fill: #1b156f;
+          }
+
+        .bars.opt2 {
+        	fill: url(#checker);
+        }
+
+        </style>
+    </head>
+    <body>
+    <div id="vis"></div>
+    <svg width="0" height="0">
+    	<defs><pattern id="checker" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+            <rect fill="#1b156f" x="0" y="0" width="8" height="8"></rect>
+    		<checker fill="#0a4b79" x="0" y="0" width="2" height="2"></checker>
+    	</pattern></defs></svg>
+
+    <script type="text/javascript">
+
+                
+                const margin = 55; 
+                const width = 700; 
+                const height = 500;                
+
+                //dataset I created
+                //const dataset = [ 
+                               // {"director": "Éric Rohmer", "films": "9"},
+                                //{"director": "Jean-Luc Godard", "films": "7"},
+                                //{"director": "Agnès Varda", "films": "4"},
+                               // {"director": "Jean Cocteau", "films": "3"},
+                               // {"director": "Francois Truffaut", "films": "2"},
+                                //{"director": "Catherine Breillat", "films": "2"},
+                                //{"director": "Jacques Demy", "films": "2"},
+                                //{"director": "Claire Denis", "films": "1"}  
+                            //];
+
+            d3.csv("french_directors.csv")
+            .then( function (dataset) {              
+
+                const maxY = d3.max(dataset, d => +d.films);
+
+                const xScale = d3.scaleBand()
+                                 .domain(dataset.map(d => d.director))
+                                 .range([margin, width - margin])
+                                 .paddingInner(.12);
+                
+                const yScale = d3.scaleLinear()
+                                 .domain([0, maxY]) 
+                                 .range([height - margin, margin]);
+                
+                const bottomAxis = d3.axisBottom()
+                                     .scale(xScale);
+                
+                const leftAxis = d3.axisLeft()
+                                   .scale(yScale);
+
+                
+               const svg = d3.select("#vis")
+                             .append("svg")
+                             .attr("width", width)
+                             .attr("height", height)
+                             .attr("role","img")
+                             .attr("aria-labelledby", "title desc");//
+
+    
+                svg.append("title")
+                   .text("Bar Chart of Films I've Watched by French Directors")
+                   .attr("id", "title") 
+
+
+                svg.append("desc")
+                   .text("A Bar Chart representing the number of films I've watched by French directors. Fill is dependent on whether I've watched more than 3 films by the director.")
+                   .attr("id", "desc")
+
+                svg.selectAll(".bars") 
+                   .data(dataset) 
+                   .enter()
+                   .append("rect")
+                   .attr("class", d => +d.films > 3 ? "bars opt1" : "bars opt2")// 
+                   .attr("x", d => xScale(d.director)) //
+                   .attr("y", d => yScale(+d.films)) //
+                   .attr("width", xScale.bandwidth()) //
+                   .attr("height", d => (height-margin) - yScale(+d.films));
+                   
+                   
+
+
+        
+                svg.append("g")
+                   .attr("transform", "translate(0," + (height - margin) + ")") 
+                   .call(bottomAxis); 
+
+
+    
+                 svg.append("g")
+                    .attr("transform", "translate(" + margin + ",0)")
+                    .call(leftAxis); 
+
+
+            
+                svg.append("text")
+                   .attr("x", width/2) //x coordinate
+                   .attr("y", 30) //y coordinate
+                   .attr("text-anchor", "middle") //horizontal text alignment
+                   .attr("fill", "black")
+                   .attr("class", "title")
+                   .text("Number of Films Watched by French Directors"); //the text 
+               
+
+                 svg.append("text")
+                    .attr("x", width/2) //x coordinate
+                    .attr("y", 45) //y coordinate
+                    .attr("text-anchor", "middle") //horizontal text alignment
+                    .attr("fill", "black")
+                    .attr("class", "description")
+                    .text("Solid dark bar fill represents that I have watched more than 3 films by this director.");
+
+
+            
+            	svg.append("text")
+            	   .attr("x", -height/2)
+            	   .attr("y", 15)
+            	   .attr("text-anchor", "middle")
+            	   .attr("transform", "rotate(-90)")
+            	   .attr("fill", "black")
+                   .attr("class", "label")
+                   .text("Films Watched"); //
+
+                  })
+            
+        </script>
+    </body>
+</html>
