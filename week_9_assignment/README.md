@@ -9,5 +9,8 @@ ___
 
 ### The donut chart:
 ![image](rat_donut.png)
-The visualization displays the percentage of rat sightings by borough in 2022.
+
+
+
+This donut chart displays the percentage of rat sightings by borough in 2022.
 ___
