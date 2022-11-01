@@ -9,5 +9,5 @@ ___
 
 ### The donut chart:
 ![image](rat_donut.png)
-The visualization displays a solid bar for directors of who I've seen more than 3 films by. The checkered bars represent directors I've seen 3 or less films by.
+The visualization displays the percentage of rat sightings by borough in 2022.
 ___
