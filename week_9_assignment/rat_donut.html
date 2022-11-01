@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Rat Donut</title>
+        <script src= "https://d3js.org/d3.v7.min.js"></script>
+        <style type="text/css">
+           
+           .title {
+            font-size: 20px;
+            font-weight: bold;
+            font-family: sans-serif;
+          }
+
+
+        .description {
+            font-size: 14px;
+            font-weight: normal;
+            font-family: sans-serif;
+        }
+
+            .labels{
+            font-size: 14px;
+            font-weight: normal;
+            font-family: sans-serif;
+          }
+
+            .polyline{
+            opacity: .3;
+            stroke: black;
+            stroke-width: 2px;
+            fill: none;
+        }
+
+            /*.toolTip {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            position: absolute;
+            display: none;
+            width: auto;
+            height: auto;
+            background: none repeat scroll 0 0 white;
+            border: 0 none;
+            border-radius: 8px 8px 8px 8px;
+            box-shadow: -3px 3px 15px #888888;
+            color: black;
+            font: 12px sans-serif;
+            padding: 5px;
+            text-align: center;
+        }*/
+
+        </style>
+    </head>
+    <body>
+        <svg width="600" height="600"></svg>
+        <script type="text/javascript">
+           
+            //Everything we are familiar with:
+            //const dataset = [10, 20, 30, 5, 50, 80];
+            //d3.dataset("rats_by_borough.csv")
+            //.then( function (dataset) {   
+             /*const dataset = [
+                {borough": "BROOKLYN", "percentage": 38},
+                {"borough": "MANHATTAN", "percentage": 28}, 
+                {"borough": "BRONX", "percentage": 15},
+                {"borough": "QUEENS", "percentage": 15},
+                {"borough": "STATEN ISLAND", "percentage": 3}];*/
+
+               /*const dataset = [
+                {"BROOKLYN": 38},
+                {"MANHATTAN": 28}, 
+                {"BRONX": 15},
+                {"QUEENS": 15},
+                {"STATEN ISLAND": 3}];*/
+            
+            const dataset = [38, 28, 15, 15, 3];    
+            const labels = ["Brooklyn", "Manhattan", "Bronx", "Queens", "Staten Island"];
+            
+            const svg = d3.select("svg");
+            const w = 600;
+            const margin = 80;
+            const myColor = d3.scaleOrdinal(d3.schemeGreys[5]);
+
+            //Donut radius
+            const outerRadius = 200;
+            const innerRadius = 100; 
+           
+            //d3.arc()creates our wedges 
+            const arcs = d3.arc()  
+                           .innerRadius(innerRadius)
+                           .outerRadius(outerRadius)
+
+            //pie generator
+            const pie = d3.pie()
+                            .padAngle(.02);
+                  
+
+            //Groups to build our pie chart!
+            const groups = svg.selectAll("g.arc")
+                              .data(pie(dataset))
+                              .enter()
+                              .append("g")
+                              .attr("class", "arc")
+                              .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")"); 
+                            console.log(pie(dataset));
+            groups.append("path")
+                 .attr("fill", (d,i)=> myColor(i))
+                 .attr("stroke", "black") 
+                 .attr("stroke-width", .2)
+                 .attr("d", arcs); 
+
+
+            //Labels
+            groups.append("text")
+                  .attr("transform", d=> "translate(" + arcs.centroid(d) + ")")
+                  .attr("text-anchor", "middle")
+                  .attr("class", "labels")
+                  .text(d=>d.value);
+ 
+                   
+            svg.append("text")
+                   .attr("x", width/2) 
+                   .attr.attr("y", 30)
+                   .attr("text-anchor", "middle") 
+                   .attr("class", "title")
+                   .text("Number of Films I've Watched by French Directors"); 
+               
+
+            /*svg.append("text")
+                    .attr("x", width/2) 
+                    .attr("y", 45) 
+                    .attr("text-anchor", "middle") 
+                    .attr("fill", "black")
+                    .attr("class", "description")
+                    .text("Checker bar fill represents that I have watched less than 3 films by this director.");*/
+     
+            //})
+
+        </script>
+    </body>
+</html>
