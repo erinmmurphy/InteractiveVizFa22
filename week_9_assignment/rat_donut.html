@@ -12,13 +12,6 @@
             font-family: sans-serif;
           }
 
-
-        .description {
-            font-size: 14px;
-            font-weight: normal;
-            font-family: sans-serif;
-        }
-
             .labels{
             font-size: 14px;
             font-weight: normal;
@@ -54,8 +47,7 @@
         <svg width="600" height="600"></svg>
         <script type="text/javascript">
            
-            //Everything we are familiar with:
-            //const dataset = [10, 20, 30, 5, 50, 80];
+
             //d3.dataset("rats_by_borough.csv")
             //.then( function (dataset) {   
              /*const dataset = [
@@ -84,7 +76,7 @@
             const outerRadius = 200;
             const innerRadius = 100; 
            
-            //d3.arc()creates our wedges 
+            //d3.arc
             const arcs = d3.arc()  
                            .innerRadius(innerRadius)
                            .outerRadius(outerRadius)
@@ -94,7 +86,7 @@
                             .padAngle(.02);
                   
 
-            //Groups to build our pie chart!
+            //Groups
             const groups = svg.selectAll("g.arc")
                               .data(pie(dataset))
                               .enter()
@@ -116,7 +108,7 @@
                   .attr("class", "labels")
                   .text(d=>d.value);
  
-                   
+            //Title       
             svg.append("text")
                    .attr("x", width/2) 
                    .attr.attr("y", 30)
@@ -124,7 +116,7 @@
                    .attr("class", "title")
                    .text("Number of Films I've Watched by French Directors"); 
                
-
+            //Description    
             /*svg.append("text")
                     .attr("x", width/2) 
                     .attr("y", 45) 
