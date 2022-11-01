@@ -8,7 +8,7 @@ ___
 
 
 ### The donut chart:
-![image](rat_donut.png)
+![image](rat_donut2.png)
 
 
 ## Clockwise: Brooklyn 38%, Manhattan 28%, Bronx 15%, Queens 15%, Staten Island 3% 
