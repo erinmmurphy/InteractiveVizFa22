@@ -11,8 +11,8 @@ ___
 ![image](rat_donut2.png)
 
 
-## Clockwise: Brooklyn 38%, Manhattan 28%, Bronx 15%, Queens 15%, Staten Island 3% 
+#### Clockwise: Brooklyn 38%, Manhattan 28%, Bronx 15%, Queens 15%, Staten Island 3% 
 
 
-This donut chart displays the percentage of rat sightings by borough in 2022. I used a grey color scale to represent the color of rats. I attempted to add external labels for the boroughs using polylines, but it didn't work. T
+This donut chart displays the percentage of rat sightings by borough in 2022. I used a grey color scale to represent the color of rats. I attempted to add external labels for the boroughs using polylines, but it didn't work.
 ___
