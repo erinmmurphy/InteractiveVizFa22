@@ -6,6 +6,10 @@
         <script src= "https://d3js.org/d3.v7.min.js"></script>
         <style type="text/css">
            
+           h1 {
+            text-align: center;
+            }  
+            
            .title {
             font-size: 20px;
             font-weight: bold;
@@ -44,6 +48,8 @@
         </style>
     </head>
     <body>
+        <h1 style="font-family:sans-serif;">2022 Rat Sightings by NYC Borough </h1>
+
         <svg width="600" height="600"></svg>
         <script type="text/javascript">
            
@@ -68,9 +74,10 @@
             const labels = ["Brooklyn", "Manhattan", "Bronx", "Queens", "Staten Island"];
             
             const svg = d3.select("svg");
-            const w = 600;
-            const margin = 80;
+            const w = 400;
+            const h = 400;
             const myColor = d3.scaleOrdinal(d3.schemeGreys[5]);
+            const margin = 80;
 
             //Donut radius
             const outerRadius = 200;
@@ -110,11 +117,12 @@
  
             //Title       
             svg.append("text")
-                   .attr("x", width/2) 
-                   .attr.attr("y", 30)
+                   .attr("x", w/2) 
+                   .attr.attr("y", padding)
                    .attr("text-anchor", "middle") 
+                   .attr("fill", "black")
                    .attr("class", "title")
-                   .text("Number of Films I've Watched by French Directors"); 
+                   .text("Rat Donut"); 
                
             //Description    
             /*svg.append("text")
