@@ -8,8 +8,16 @@
            
            h1 {
             text-align: center;
+            font-size: 20px;
             }  
-            
+
+            h2 {
+            text-align: center;
+            font-size: 10px;
+        
+            }  
+
+        
            .title {
             font-size: 20px;
             font-weight: bold;
@@ -49,7 +57,7 @@
     </head>
     <body>
         <h1 style="font-family:sans-serif;">2022 Rat Sightings by NYC Borough </h1>
-
+        <h2 style="font-family:sans-serif;">Clockwise from top-center: Brooklyn 38%, Manhattan 28%, Bronx 15%, Queens 15%, Staten Island 3% </h2>
         <svg width="600" height="600"></svg>
         <script type="text/javascript">
            
@@ -77,7 +85,8 @@
             const w = 400;
             const h = 400;
             const myColor = d3.scaleOrdinal(d3.schemeGreys[5]);
-            const margin = 80;
+            
+
 
             //Donut radius
             const outerRadius = 200;
@@ -99,6 +108,7 @@
                               .enter()
                               .append("g")
                               .attr("class", "arc")
+                              //.attr("transform", "translate(" + width/2 + "," + height/2 + ")");
                               .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")"); 
                             console.log(pie(dataset));
             groups.append("path")
