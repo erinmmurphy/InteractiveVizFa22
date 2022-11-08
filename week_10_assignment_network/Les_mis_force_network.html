@@ -6,15 +6,23 @@
         <script src= "https://d3js.org/d3.v7.min.js"></script>
         <style type="text/css">
         
+        
         body {
         width: 600px;
-        margin: 0 auto;
+        margin: .2;
         background-color: black;
         }   
-
+       
+        h1 {
+            text-align: center;
+            font-size: 20px;
+            color: white;
+            }  
         </style>
     </head>
     <body>
+        <h1 style="font-family:sans-serif;">Force Directed Graph of Les Miserables Characters</h1>
+
         <svg width="600" height="600"></svg>
         <script type="text/javascript">
            
@@ -41,11 +49,11 @@
                 //comment out these .force() one at a time to see how it changes
                 const simulation = d3.forceSimulation(dataset.nodes)
                                     //.force("charge", d3.forceManyBody())
-                                    .force("charge", d3.forceManyBody().strength(-50))
+                                    .force("charge", d3.forceManyBody().strength(-40))
                                     //.force("charge", d3.forceManyBody().strength(-500))
                                     //.force("link", d3.forceLink(dataset.edges))
-                                    //.force("link", d3.forceLink(dataset.edges).distance(50))
-                                    .force("link", d3.forceLink(dataset.edges).distance(200)) 
+                                    .force("link", d3.forceLink(dataset.edges).distance(50))
+                                    //.force("link", d3.forceLink(dataset.edges).distance(200)) 
                                     .force("center", d3.forceCenter().x(w/2).y(h/2));
                                     //.force("center", d3.forceCenter().x(w/4).y(h/4));
                                     //.force("center", d3.forceCenter().x(100).y(500));
