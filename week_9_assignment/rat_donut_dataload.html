@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Rat Donut</title>
+        <script src= "https://d3js.org/d3.v7.min.js"></script>
+        <style type="text/css">
+            
+    
+          h1 {
+            text-align: center;
+            font-size: 20px;
+            }  
+
+            h2 {
+            text-align: center;
+            font-size: 10px;
+        
+            }  
+
+        
+           .title {
+            font-size: 20px;
+            font-weight: bold;
+            font-family: sans-serif;
+          }
+
+            .labels{
+            font-size: 14px;
+            font-weight: normal;
+            font-family: sans-serif;
+          }
+
+            .polyline{
+            opacity: .3;
+            stroke: black;
+            stroke-width: 2px;
+            fill: none;
+        }
+
+            #tooltip {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            position: absolute;
+            display: none;
+            width: auto;
+            height: auto;
+            background: none repeat scroll 0 0 white;
+            border: 0 none;
+            border-radius: 8px 8px 8px 8px;
+            box-shadow: -3px 3px 15px #888888;
+            color: black;
+            font: 12px sans-serif;
+            padding: 5px;
+            text-align: center;
+        }
+
+        </style>
+    </head>
+    <body>   <h1 style="font-family:sans-serif;">2022 Rat Sightings by NYC Borough </h1>
+        <h2 style="font-family:sans-serif;">Clockwise from top-center: Brooklyn 38%, Manhattan 28%, Bronx 15%, Queens 15%, Staten Island 3% </h2>
+
+        <svg width="600" height="600"></svg>
+        <script type="text/javascript">
+           
+            
+        d3.csv("rats_by_borough2.csv").then(dataset => {  
+            
+            dataset.forEach(d => {
+                d.borough = d.borough;
+                d.count = +d.count;
+                d.percentage = +d.percentage;
+            });
+
+            console.log(dataset);
+             
+            const tooltip =d3.select("body")
+                         .append("div")
+                         .attr("id", "tooltip")
+                         .style("opacity", 0);
+            
+            const svg = d3.select("svg");
+            const w = 600;
+            const myColor = d3.scaleOrdinal(d3.schemeGreys[5]);
+
+            //Donut radius
+            const outerRadius = 200;
+            const innerRadius = 100; 
+           
+            //d3.arc()creates our wedges 
+            const arcs = d3.arc()  
+                           .innerRadius(innerRadius)
+                           .outerRadius(outerRadius)
+
+            //pie generator
+            const pie = d3.pie()
+                            .value(d => d.percentage)
+                            .padAngle(.03);
+            
+                             
+
+            //Groups to build our pie chart!
+            const groups = svg.selectAll("g.arc")
+                .data(pie(dataset))
+                .enter()
+                .append("g")
+                .attr("class", "arc")
+                .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")")
+                .on("mouseover", (event, d)=> {
+                d3.select("#tooltip")
+                .transition()
+                .duration(300)//milliseconds!
+                .style("opacity", 1)
+                .style("left", (event.pageX + 2) + "px")//x coordinate of mouse
+                .style("top", (event.pageY + 2) + "px")//y coordinate of mouse
+            tooltip.html("Percent: " + "<br>" + d.percentage); //setting the html here for the <br>
+                //.text("Value: " + d.data.percentage);  // note: you could just do the .text() per usual
+            })     
+            .on("mouseout", (event, d)=>{
+                d3.select("#tooltip")
+              .transition()
+              .style("opacity", 0);
+            })
+            .on("mousemove", (event, d) => {
+                d3.select("#tooltip")
+              .style("left", (event.pageX + 2) + "px")
+              .style("top", (event.pageY + 2) + "px")
+              });
+              
+                            
+            //console.log(pie(dataset));
+
+       /* const tooltip = d3.select("body")   
+              .append("div")
+              .attr("id", "tooltip")
+              .style("opacity", 0); */
+            
+            groups.append("path")
+                 .attr("fill", (d,i)=> myColor(i))
+                 .attr("stroke", "black") 
+                 .attr("stroke-width", .2)
+                 .attr("d", arcs); 
+
+
+            //Labels
+            groups.append("text")
+                  .attr("transform", d=> "translate(" + arcs.centroid(d) + ")")
+                  .attr("text-anchor", "middle")
+                  .attr("class", "labels")
+                  .text(d=>d.data.borough);
+                  //.text(d=>d.value);
+
+ 
+            })
+
+        </script>
+    </body>
+</html>
