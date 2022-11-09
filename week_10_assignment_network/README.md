@@ -1,18 +1,17 @@
-# Donut Chart of 2022 Rat Sightings by NYC Borough 
+# Force Directed Graph of Les Miserables Characters
 
-#### This dataset was obtained from NYC Open Data using a dataset of 311 complaints filtered by year (2022) and complaint type (rat sighting).
+#### The network datasets (edges.csv and nodes.csv) of Les Miserables characters was obtained from a sample of datasets provided on Gephi's Github:
+https://github.com/gephi/gephi/wiki/Datasets
 ____
 
 
 ___
 
 
-### The donut chart:
-![image](rat_donut2.png)
+### The graph:
+![image](LeMis_graph.png)
 
 
-#### Clockwise: Brooklyn 38%, Manhattan 28%, Bronx 15%, Queens 15%, Staten Island 3% 
 
+This network graph of Les Miserables characters was created with D3. 
 
-This donut chart displays the percentage of rat sightings by borough in 2022. I used a grey color scale to represent the color of rats. I attempted to add tooltips and external labels for the boroughs using polylines, but have not been able to get them to work yet.
-___
