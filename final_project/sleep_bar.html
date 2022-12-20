@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Sleep Bar Chart</title>
+        <script src= "https://d3js.org/d3.v7.min.js"></script>
+        <style type="text/css">
+            
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+            font-family: sans-serif;
+          }
+
+        .label{
+            font-size: 14px;
+            font-weight: normal;
+            font-family: sans-serif;
+          }
+
+        .description {
+            font-size: 14px;
+            font-weight: normal;
+            font-family: sans-serif;
+        }
+
+        .bars.opt1 {
+        	fill: #1b156f;
+          }
+
+       /* .bars.opt2 {
+        	fill: url(#checker);
+        }*/
+
+        </style>
+    </head>
+    <body>
+    <div id="vis"></div>
+    <svg width="0" height="0"></svg>
+
+    <script type="text/javascript">
+
+                
+                const margin = 55; 
+                const width = 700; 
+                const height = 500;                
+
+    
+
+            d3.csv("sleep_data_clean.csv")
+            .then( function (dataset) {              
+
+                const maxY = d3.max(dataset, d => +d.sleep_quality);
+
+                const xScale = d3.scaleBand()
+                                 .domain(dataset.map(d => d.year))
+                                 //.domain(d3.range(dataset.length))
+                                .range([margin, width - margin])
+                                 .paddingInner(.12);
+                
+                const yScale = d3.scaleLinear()
+                                 .domain([0, maxY]) 
+                                 .range([height - margin, margin]);
+                
+                const bottomAxis = d3.axisBottom()
+                                     .scale(xScale);
+                
+                const leftAxis = d3.axisLeft()
+                                   .scale(yScale);
+
+                
+               const svg = d3.select("#vis")
+                             .append("svg")
+                             .attr("width", width)
+                             .attr("height", height)
+                             .attr("role","img")
+                             .attr("aria-labelledby", "title desc");//
+
+    
+                svg.append("title")
+                   .text("Sleep Quality by Location")
+                   .attr("id", "title") 
+
+
+                svg.append("desc")
+                   .text("A Bar Chart representing my sleep quality by location. Fill is dependent x.")
+                   .attr("id", "desc")
+
+                svg.selectAll(".bars") 
+                   .data(dataset) 
+                   .enter()
+                   .append("rect")
+                   .attr("class", d => +d.sleep_quality)
+                   .attr("x", d => xScale(d.year)) 
+                   .attr("y", d => yScale(+d.sleep_quality))
+                   .attr("width", xScale.bandwidth())
+                   .attr("height", d => (height-margin) - yScale(+d.sleep_quality));
+                   
+                   
+
+
+        
+                svg.append("g")
+                   .attr("transform", "translate(0," + (height - margin) + ")") 
+                   .call(bottomAxis); 
+
+
+    
+                 svg.append("g")
+                    .attr("transform", "translate(" + margin + ",0)")
+                    .call(leftAxis); 
+
+
+            
+                svg.append("text")
+                   .attr("x", width/2) //x coordinate
+                   .attr("y", 30) //y coordinate
+                   .attr("text-anchor", "middle") //horizontal text alignment
+                   .attr("fill", "black")
+                   .attr("class", "title")
+                   .text("Location"); //the text 
+               
+
+                 svg.append("text")
+                    .attr("x", width/2) //x coordinate
+                    .attr("y", 45) //y coordinate
+                    .attr("text-anchor", "middle") //horizontal text alignment
+                    .attr("fill", "black")
+                    .attr("class", "description")
+                    .text("Solid dark bar fill represents ....");
+
+
+            
+            	svg.append("text")
+            	   .attr("x", -height/2)
+            	   .attr("y", 15)
+            	   .attr("text-anchor", "middle")
+            	   .attr("transform", "rotate(-90)")
+            	   .attr("fill", "black")
+                   .attr("class", "label")
+                   .text("Sleep Quality"); //
+
+                  })
+            
+        </script>
+    </body>
+</html>
