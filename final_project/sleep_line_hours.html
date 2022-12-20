@@ -97,7 +97,7 @@
               dataset.forEach(d => {
                 //d.year = d.year
                 d.year = parseTime(d.year);
-                d.value = +d.avg_sleep_quality;
+                d.value = +d.avg_sleep_duration;
             });
                 //const maxY = d3.max(dataset, d => +d.avg_sleep_quality);
 
@@ -238,7 +238,7 @@
                    .attr("text-anchor", "middle") //horizontal text alignment
                    .attr("fill", "black")
                    .attr("class", "title")
-                   .text("Location"); //the text 
+                   .text("Average Hours of Sleep (Per Day)"); //the text 
                
 
                  svg.append("text")
@@ -247,7 +247,7 @@
                     .attr("text-anchor", "middle") //horizontal text alignment
                     .attr("fill", "black")
                     .attr("class", "description")
-                    .text("Solid dark bar fill represents ....");
+                    .text("Based on data from my Sleep Cycle app");
 
 
             
@@ -258,7 +258,7 @@
             	   .attr("transform", "rotate(-90)")
             	   .attr("fill", "black")
                    .attr("class", "label")
-                   .text("Sleep Quality"); //
+                   .text("Average Hours of Sleep"); //
 
                   })
             
